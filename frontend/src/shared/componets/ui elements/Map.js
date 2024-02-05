@@ -101,7 +101,7 @@ const MapComponent = ({ center }) => {
           address: address,
         },
         headers: {
-          'x-rapidapi-key': 'YOUR_API_KEY', // Replace 'YOUR_API_KEY' with your actual API key
+          'x-rapidapi-key': process.env.REACT_APP_MAP_KEY, // Replace 'YOUR_API_KEY' with your actual API key
           'x-rapidapi-host': 'trueway-geocoding.p.rapidapi.com',
         },
       });

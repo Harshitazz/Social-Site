@@ -45,8 +45,8 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect('mongodb+srv://harshita:ZK1KNcLrLwkPS9pX@cluster0.9bh9deu.mongodb.net/mern?retryWrites=true&w=majority')
-  //.connect('mongodb+srv://harshita:ZK1KNcLrLwkPS9pX@cluster0.9bh9deu.mongodb.net/mern?retryWrites=true&w=majority') 
+  //.connect('mongodb+srv://harshita:ZK1KNcLrLwkPS9pX@cluster0.9bh9deu.mongodb.net/mern?retryWrites=true&w=majority')
+  .connect('mongodb+srv://harshita:ZK1KNcLrLwkPS9pX@cluster0.9bh9deu.mongodb.net/mern?retryWrites=true&w=majority') 
   .then(() => {app.listen(5000);})
   .catch(err=>{
     console.log(err);
