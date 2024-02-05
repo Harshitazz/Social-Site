@@ -1,8 +1,8 @@
-const fs= require('fs') 
+const fs = require("fs");
 const express = require("express");
 const bodyParser = require("body-parser");
 const HttpError = require("./models/http-error");
-const path= require('path')
+const path = require("path");
 const mongoose = require("mongoose");
 
 const placesRoutes = require("./routes/places-routes");
@@ -10,24 +10,27 @@ const userRoutes = require("./routes/users-routes");
 
 const app = express();
 
-const cors = require('cors');
+const cors = require("cors");
 // Allow all origins
 app.use(cors());
 // Allow specific origin(s)
-app.use(cors({
-  origin: 'https://yourdeployedsite.com'
-}));
+app.use(
+  cors({
+    origin: "https://yourdeployedsite.com",
+  })
+);
 
 app.use(bodyParser.json());
 
-app.use('/uploads/images', express.static(path.join('uploads','images')))
+app.use("/uploads/images", express.static(path.join("uploads", "images")));
 
-app.use((req,res,next)=>{
-  res.setHeader('Access-Control-Allow-Origin','*');
-  res.setHeader('Access-Control-Allow-Headers',
-  'Origin,X-Requested-With,Content-Type,Accept,Authorization'
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin,X-Requested-With,Content-Type,Accept,Authorization"
   );
-  res.setHeader('Access-Control-Allow-Methods','GET,POST,PATCH,DELETE');
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PATCH,DELETE");
   next();
 });
 
@@ -40,10 +43,10 @@ app.use((req, res, next) => {
 });
 
 app.use((error, req, res, next) => {
-  if(req.file){
-    fs.unlink(req.file.path, (err)=>{
+  if (req.file) {
+    fs.unlink(req.file.path, (err) => {
       console.log(err);
-    })
+    });
   }
   if (res.headerSent) {
     return next(error);
@@ -54,9 +57,15 @@ app.use((error, req, res, next) => {
 
 mongoose
   //.connect('mongodb+srv://harshita:ZK1KNcLrLwkPS9pX@cluster0.9bh9deu.mongodb.net/mern?retryWrites=true&w=majority')
-  .connect('mongodb+srv://harshita:ZK1KNcLrLwkPS9pX@cluster0.9bh9deu.mongodb.net/mern?retryWrites=true&w=majority') 
-  .then(() => {app.listen(5000);})
-  .catch(err=>{
+  .connect(
+    "mongodb+srv://harshita:ZK1KNcLrLwkPS9pX@cluster0.9bh9deu.mongodb.net/mern?retryWrites=true&w=majority"
+  )
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
+  })
+  .catch((err) => {
     console.log(err);
   });
 //
