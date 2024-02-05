@@ -4,11 +4,18 @@ const bodyParser = require("body-parser");
 const HttpError = require("./models/http-error");
 const path = require("path");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const placesRoutes = require("./routes/places-routes");
 const userRoutes = require("./routes/users-routes");
 
 const app = express();
+
+app.use(cors({
+  origin:[process.env.FRONTEND_URL],
+  methods:["GET","POST","PATCH","DELETE"],
+  credentials: true
+}))
 
 app.use(bodyParser.json());
 
@@ -51,7 +58,9 @@ mongoose
     `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.9bh9deu.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
   )
   .then(() => {
-    app.listen(process.env.PORT ||5000);
+    app.listen(process.env.PORT,()=>{
+      console.log(`server is working`)
+    });
   })
   .catch((err) => {
     console.log(err);
