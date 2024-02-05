@@ -10,6 +10,14 @@ const userRoutes = require("./routes/users-routes");
 
 const app = express();
 
+const cors = require('cors');
+// Allow all origins
+app.use(cors());
+// Allow specific origin(s)
+app.use(cors({
+  origin: 'https://yourdeployedsite.com'
+}));
+
 app.use(bodyParser.json());
 
 app.use('/uploads/images', express.static(path.join('uploads','images')))
