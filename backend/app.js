@@ -10,16 +10,6 @@ const userRoutes = require("./routes/users-routes");
 
 const app = express();
 
-const cors = require("cors");
-// Allow all origins
-app.use(cors());
-// Allow specific origin(s)
-app.use(
-  cors({
-    origin: "https://yourdeployedsite.com",
-  })
-);
-
 app.use(bodyParser.json());
 
 app.use("/uploads/images", express.static(path.join("uploads", "images")));
@@ -58,12 +48,10 @@ app.use((error, req, res, next) => {
 mongoose
   //.connect('mongodb+srv://harshita:ZK1KNcLrLwkPS9pX@cluster0.9bh9deu.mongodb.net/mern?retryWrites=true&w=majority')
   .connect(
-    "mongodb+srv://harshita:ZK1KNcLrLwkPS9pX@cluster0.9bh9deu.mongodb.net/mern?retryWrites=true&w=majority"
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.9bh9deu.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
   )
   .then(() => {
-    app.listen(port, () => {
-      console.log(`Server is running on port ${port}`);
-    });
+    app.listen(5000);
   })
   .catch((err) => {
     console.log(err);
