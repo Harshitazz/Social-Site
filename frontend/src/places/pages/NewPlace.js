@@ -49,9 +49,14 @@ const NewPlace = () => {
       formData.append('creator',auth.userId);
       formData.append('image',formState.inputs.image.value)
 
+      console.log(formState.inputs.image.value)
+      
       const responseData= await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/places`, 'POST', formData, {
-        
-        Authorization: 'Bearer ' + auth.token
+        headers: {
+          ...formData.getHeaders(), // Include existing headers from formData
+          'Authorization': 'Bearer ' + auth.token, // Add or modify Authorization header
+          'Content-Type': 'multipart/form-data' // Add additional custom header
+        }
       });
       console.log(responseData)
       //redirect to a new page on adding a new pllace 

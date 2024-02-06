@@ -17,6 +17,7 @@ const deleteplacehandler= deleteplaceid=>{
         try{
           const responseData= await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/places/user/${userId}`)
           setloadedplaces(responseData.places)
+          console.log(responseData)
         }catch(err){}
       }
       fetchplaces();
